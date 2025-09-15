@@ -27,7 +27,8 @@ class Produto(BaseModel):
     categoria: Categoria_Produtos
 
 class Pedido(BaseModel):
-    id_nr_pedido: int
+    id: int
+    nr_pedido: int
     data_pedido: date
     data_entrega: date
     tipo_entrega: str

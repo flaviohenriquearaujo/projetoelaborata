@@ -49,36 +49,37 @@ def obter_pedidos_por_nome_cliente(nome_cliente: str, db: Session = Depends(get_
 
 
 
-@router.get("/{id_nr_pedido}",
+@router.get("/{id}",
             response_model=Pedido,
             summary="Obter pedido",
             description="Buscar um pedido",
             responses={500:{"description": "Erro ao buscar pedido"}}                 
             )
 
-def obter(id_nr_pedido: int, db = Depends(get_db)):
+def obter(id: int, db = Depends(get_db)):
     try:
         
-        return obter_pedido(id_nr_pedido, db)
+        return obter_pedido(id, db)
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f'Erro ao obter pedido. # {e} #!!')
 
-@router.put("/{id_nr_pedido}",
+@router.put("/{id}",
             response_model=Pedido,
             summary="Alterar pedido",
             description="Alterar registro de pedido",
             responses={500:{"description": "Erro ao alterar pedido"}}                 
             ) 
 
-def alterar(id_nr_pedido: int, pedido: Pedido, db = Depends(get_db)):
+def alterar(id: int, pedido: Pedido, db = Depends(get_db)):
     try:
-        pedido_data = db.query(Pedido_Data).filter(Pedido_Data.id_nr_pedido == id_nr_pedido).first()
+        pedido_data = db.query(Pedido_Data).filter(Pedido_Data.id == id).first()
     
         if not pedido_data:
             raise HTTPException(status_code=404, detail=f'pedido não encontrado!!')
         
-        pedido_data.data_pedido = pedido.data_pedido
+        pedido_data.nr_pedido = pedido.nr_pedido,
+        pedido_data.data_pedido = pedido.data_pedido,
         pedido_data.data_entrega = pedido.data_entrega,
         pedido_data.tipo_entrega = pedido.tipo_entrega,
         pedido_data.observacoes = pedido.observacoes,
@@ -94,16 +95,16 @@ def alterar(id_nr_pedido: int, pedido: Pedido, db = Depends(get_db)):
     except Exception as e:
        raise HTTPException(status_code=500, detail=f'Erro ao alterar pedido. # {e} #!!')
 
-@router.delete("/{id_nr_pedido}",
+@router.delete("/{id}",
             response_model=Pedido,
             summary="Excluir pedido",
             description="Excluir registro de pedido",
             responses={500:{"description": "Erro ao excluir pedido"}}
             )
 
-def excluir(id_nr_pedido: int, db = Depends(get_db)):
+def excluir(id: int, db = Depends(get_db)):
     try:
-        return excluir_pedido(id_nr_pedido, db)
+        return excluir_pedido(id, db)
     
     except Exception as e:
        raise HTTPException(status_code=500, detail=f'Erro ao excluir pedido. # {e} #!!')

@@ -7,7 +7,8 @@ from routers import cliente
 from schemas import Pedido
 
 def criar_pedido(pedido: Pedido, db: Session):
-    pedido_data = Pedido_Data(data_pedido = pedido.data_pedido,
+    pedido_data = Pedido_Data(nr_pedido = pedido.nr_pedido,
+                              data_pedido = pedido.data_pedido,
                               data_entrega = pedido.data_entrega,
                               tipo_entrega = pedido.tipo_entrega,
                               observacoes = pedido.observacoes,
@@ -20,8 +21,6 @@ def criar_pedido(pedido: Pedido, db: Session):
     db.refresh(pedido_data)
 
     return pedido_data
-
-
 
 
 
@@ -42,21 +41,22 @@ def obter_pedido_por_nome_cliente(cliente_id: int, db: Session):
 
 
 
-def obter_pedido(id_nr_pedido: int, db: Session):
-    pedido = db.query(Pedido_Data).filter(Pedido_Data.id_nr_pedido == id_nr_pedido).first()
+def obter_pedido(id: int, db: Session):
+    pedido = db.query(Pedido_Data).filter(Pedido_Data.id == id).first()
 
     if not pedido:
         raise HTTPException(status_code=404, detail=f"pedido não encontrado!")
     
     return pedido
 
-def alterar_pedido(id_nr_pedido: int, pedido: Pedido, db: Session):
-    pedido_data = db.query(Pedido_Data).filter(Pedido_Data.id_nr_pedido == id_nr_pedido).first()
+def alterar_pedido(id: int, pedido: Pedido, db: Session):
+    pedido_data = db.query(Pedido_Data).filter(Pedido_Data.id == id).first()
 
     if not pedido_data:
         raise HTTPException(status_code=404, detail=f"pedido não encontrado!")
     
-    pedido_data.data_pedido = pedido.data_pedido
+    pedido_data.nr_pedido = pedido.nr_pedido,
+    pedido_data.data_pedido = pedido.data_pedido,
     pedido_data.data_entrega = pedido.data_entrega,
     pedido_data.tipo_entrega = pedido.tipo_entrega,
     pedido_data.observacoes = pedido.observacoes,
@@ -68,9 +68,9 @@ def alterar_pedido(id_nr_pedido: int, pedido: Pedido, db: Session):
 
     return pedido_data
 
-def excluir_pedido(id_nr_pedido: int, db: Session):
+def excluir_pedido(id: int, db: Session):
 
-    pedido_data = db.query(Pedido_Data).filter(Pedido_Data.id_nr_pedido == id_nr_pedido).first()
+    pedido_data = db.query(Pedido_Data).filter(Pedido_Data.id == id).first()
 
     if not pedido_data:
         raise HTTPException(status_code=404, detail=f"pedido não encontrado!")

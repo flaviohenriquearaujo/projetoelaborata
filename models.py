@@ -36,7 +36,8 @@ class Categoria_Produtos_Data(Base):
 class Pedido_Data(Base):
     __tablename__ = "pedido"
 
-    id_nr_pedido = Column(Integer, primary_key = True, index = True)
+    id = Column(Integer, primary_key = True, index = True)
+    nr_pedido = Column(Integer, index = True)
     data_pedido = Column(Date, nullable = False)
     data_entrega = Column(Date, nullable = False)
     tipo_entrega = Column(String, nullable = False)
