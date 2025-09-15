@@ -24,14 +24,13 @@ def criar_pedido(pedido: Pedido, db: Session):
 
 
 
-
+# def obter1
 def obter_pedido_por_nome_cliente(cliente_id: int, db: Session):
-    # cliente = db.query(Cliente).filter(Cliente.nome == nome_cliente).first()
-                
-    pedido = db.query(Pedido_Data).filter(Pedido_Data.cliente_id == cliente.id).all
+                    
+    pedido = db.query(Pedido_Data).filter(Pedido_Data.cliente_id == cliente_id).all
     
     if not pedido:
-        raise HTTPException(status_code=404, detail=f"pedido não encontrado!")
+        raise HTTPException(status_code=404, detail=f" pedido não encontrado! ")
     
     
     # pedido  =db.query(Pedido_Data).filter(Pedido_Data.nome.ilike(f"%{nome}%")).all()
