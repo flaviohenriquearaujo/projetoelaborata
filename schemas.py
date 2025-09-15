@@ -2,7 +2,7 @@
 
 
 from pydantic import BaseModel
-from datetime import datetime
+from datetime import date
 
 
 class Status(BaseModel):
@@ -27,13 +27,13 @@ class Produto(BaseModel):
     categoria: Categoria_Produtos
 
 class Pedido(BaseModel):
-    id: int
-    data_pedido: datetime
-    data_entrega: datetime
+    id_nr_pedido: int
+    data_pedido: date
+    data_entrega: date
     tipo_entrega: str
-    status: str
     observacoes: str
     cliente: Cliente
+    status: Status
 
 class Item_Pedido(BaseModel):
     id: int

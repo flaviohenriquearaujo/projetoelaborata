@@ -7,9 +7,8 @@ from models import Cliente_Data
 from schemas import Cliente
 
 def criar_cliente(cliente: Cliente, db: Session):
-    cliente_data = Cliente_Data(nome= cliente.nome, telefone= cliente.telefone, endereco = cliente.endereco,
-                                status_id = cliente.status.id,
-                                )
+    cliente_data = Cliente_Data(nome = cliente.nome, telefone= cliente.telefone, endereco = cliente.endereco,
+                                status_id = cliente.status.id)
 
     db.add(cliente_data)
     db.commit()
@@ -36,6 +35,8 @@ def alterar_cliente(id: int, cliente: Cliente, db: Session):
         raise HTTPException(status_code=404, detail=f"Cliente não encontrado!")
     
     cliente_data.nome = cliente.nome
+    # cliente_data.telefone = cliente.telefone
+    # cliente_data.endereco = cliente.endereco   **************PERGUNTAR PQ NÃO PRECISA PASSAR AQUI TBM***************
     cliente_data.status_id = cliente.status.id
 
     db.commit()
