@@ -26,13 +26,11 @@ def criar_pedido(pedido: Pedido, db: Session):
 
 def obter_pedido_por_id_cliente(cliente_id: int, db: Session):
                     
-    pedido = db.query(Pedido_Data).filter(Pedido_Data.cliente_id == cliente_id).all
+    pedido = db.query(Pedido_Data).filter(Pedido_Data.cliente_id == cliente_id).all()
     
     if not pedido:
         raise HTTPException(status_code=404, detail=f" pedido não encontrado! ")
     
-    
-    # pedido  =db.query(Pedido_Data).filter(Pedido_Data.nome.ilike(f"%{nome}%")).all()
     
     return pedido
 

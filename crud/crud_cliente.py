@@ -35,8 +35,8 @@ def alterar_cliente(id: int, cliente: Cliente, db: Session):
         raise HTTPException(status_code=404, detail=f"Cliente não encontrado!")
     
     cliente_data.nome = cliente.nome
-    # cliente_data.telefone = cliente.telefone
-    # cliente_data.endereco = cliente.endereco   **************PERGUNTAR PQ NÃO PRECISA PASSAR AQUI TBM***************
+    cliente_data.telefone = cliente.telefone
+    cliente_data.endereco = cliente.endereco
     cliente_data.status_id = cliente.status.id
 
     db.commit()

@@ -56,21 +56,8 @@ def obter(id: int, db = Depends(get_db)):
 
 def alterar(id: int, cliente: Cliente, db = Depends(get_db)):
     try:
-        cliente_data = db.query(Cliente_Data).filter(Cliente_Data.id == id).first()
-    
-        if not cliente_data:
-            raise HTTPException(status_code=404, detail=f'Cliente não encontrado!!')
-        
-        cliente_data.nome = cliente.nome
-        cliente_data.telefone = cliente.telefone
-        cliente_data.endereco = cliente.endereco        
-        cliente_data.status_id = cliente.status.id
-        
-        db.commit()
-        db.refresh(cliente_data)
-    
-        return cliente_data
-
+           
+        return alterar_cliente(id, cliente, db)
 
     except Exception as e:
        raise HTTPException(status_code=500, detail=f'Erro ao alterar cliente{e}!!')
