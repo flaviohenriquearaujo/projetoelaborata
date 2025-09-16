@@ -49,7 +49,7 @@ def alterar(id: int, status: Status, db = Depends(get_db)):
             raise HTTPException(status_code=404, detail=f'Status não encontrado!!')
         
         status_data.descricao = status.descricao
-        # status_data.status_id = status.status.id
+      
         
         db.commit()
         db.refresh(status_data)

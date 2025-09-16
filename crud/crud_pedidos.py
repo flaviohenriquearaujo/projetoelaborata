@@ -24,8 +24,7 @@ def criar_pedido(pedido: Pedido, db: Session):
 
 
 
-# def obter1
-def obter_pedido_por_nome_cliente(cliente_id: int, db: Session):
+def obter_pedido_por_id_cliente(cliente_id: int, db: Session):
                     
     pedido = db.query(Pedido_Data).filter(Pedido_Data.cliente_id == cliente_id).all
     

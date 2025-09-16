@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 
-from crud.crud_pedidos import criar_pedido, excluir_pedido, alterar_pedido, obter_pedido
+from crud.crud_pedidos import criar_pedido, excluir_pedido, alterar_pedido, obter_pedido, obter_pedido_por_id_cliente
 from database import get_db
 from models import Pedido_Data
 from schemas import Pedido, Cliente
@@ -19,35 +19,20 @@ def criar(pedido: Pedido, db = Depends(get_db)):
     return criar_pedido(pedido, db)
 
 
-@router.get("/busca_por_cliente",
+@router.get("/busca_por_id_cliente",
             response_model=list[Pedido],
-            summary="Buscar pedido por nome do cliente",
-            description="Buscar por nome do cliente",
-            responses={500:{"description": "Erro ao buscar pedido por nome do cliente"}}
+            summary="Buscar pedido por id do cliente",
+            description="Buscar por id do cliente",
+            responses={500:{"description": "Erro ao buscar pedido por id do cliente"}}
         )
 
-
-
-
-def obter_pedidos_por_nome_cliente(nome_cliente: str, db: Session = Depends(get_db)):
+def obter_por_id_cliente(cliente_id: int, db: Session = Depends(get_db)):
     try:
-        cliente = db.query(Cliente).filter(Cliente.nome == nome_cliente).first()
-        
-        if not cliente:
-            raise HTTPException(status_code=404, detail="Cliente não encontrado")
-        
-        pedidos = db.query(Pedido_Data).filter(Pedido_Data.cliente_id == cliente.id).all
-        
-        return pedidos (nome_cliente, db)
+            
+        return obter_pedido_por_id_cliente (cliente_id, db)
     
     except Exception as e:
         raise HTTPException(status_code=500, detail=f'Erro ao obter cliente{e}!!')
-
-
-
-
-
-
 
 @router.get("/{id}",
             response_model=Pedido,
