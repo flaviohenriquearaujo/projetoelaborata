@@ -63,7 +63,6 @@ def alterar(id: int, cliente: Cliente, db = Depends(get_db)):
        raise HTTPException(status_code=500, detail=f'Erro ao alterar cliente{e}!!')
 
 @router.delete("/{id}",
-            response_model=Cliente,
             summary="Excluir Cliente",
             description="Excluir registro de cliente",
             responses={500:{"description": "Erro ao excluir cliente"}}

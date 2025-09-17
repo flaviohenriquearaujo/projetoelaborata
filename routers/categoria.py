@@ -62,19 +62,16 @@ def alterar(id: int, categoria: Categoria_Produtos, db = Depends(get_db)):
             raise HTTPException(status_code=404, detail=f'Categoria de Produtos não encontrada!!')
         
         categoria_data.nome = categoria.nome
-
         
         db.commit()
         db.refresh(categoria_data)
     
         return categoria_data
 
-
     except Exception as e:
        raise HTTPException(status_code=500, detail=f'Erro ao alterar Categoria de Produtos. # {e} #!!')
 
 @router.delete("/{id}",
-            response_model = Categoria_Produtos,
             summary="Excluir Categoria de Produtos",
             description="Excluir registro de Categoria de Produtos",
             responses={500:{"description": "Erro ao excluir Categoria de Produtos"}}

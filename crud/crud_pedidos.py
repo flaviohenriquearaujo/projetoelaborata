@@ -35,8 +35,6 @@ def obter_pedido_por_id_cliente(cliente_id: int, db: Session):
     return pedido
 
 
-
-
 def obter_pedido(id: int, db: Session):
     pedido = db.query(Pedido_Data).filter(Pedido_Data.id == id).first()
 

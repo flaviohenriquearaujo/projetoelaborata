@@ -61,7 +61,6 @@ def alterar(id: int, status: Status, db = Depends(get_db)):
        raise HTTPException(status_code=500, detail=f'Erro ao alterar Status{e}!!')
 
 @router.delete("/{id}",
-            response_model=Status,
             summary="Excluir Status",
             description="Excluir registro de Status",
             responses={500:{"description": "Erro ao excluir status"}}

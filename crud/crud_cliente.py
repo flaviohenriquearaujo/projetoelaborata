@@ -3,7 +3,6 @@ from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
 from models import Cliente_Data
-# from models import Pedido_Data, Item_Pedido_Data, Insumos_Data, Status_Data
 from schemas import Cliente
 
 def criar_cliente(cliente: Cliente, db: Session):

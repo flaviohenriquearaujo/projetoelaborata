@@ -81,7 +81,6 @@ def alterar(id: int, pedido: Pedido, db = Depends(get_db)):
        raise HTTPException(status_code=500, detail=f'Erro ao alterar pedido. # {e} #!!')
 
 @router.delete("/{id}",
-            response_model=Pedido,
             summary="Excluir pedido",
             description="Excluir registro de pedido",
             responses={500:{"description": "Erro ao excluir pedido"}}
